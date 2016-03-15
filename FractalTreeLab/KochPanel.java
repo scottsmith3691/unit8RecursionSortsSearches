@@ -14,9 +14,9 @@ public class KochPanel extends JPanel
 
    private final double SQ = Math.sqrt(3.0) / 3;
 
-   private final int TOPX = 200, TOPY = 20;
-   private final int LEFTX = 60, LEFTY = 300;
-   private final int RIGHTX = 340, RIGHTY = 300;
+   private final int TOPX = 300, TOPY = 300;
+   private final int BOTTOMX = 300, BOTTOMY = 100;
+   
 
    private int current; //current order
 
@@ -48,8 +48,8 @@ public class KochPanel extends JPanel
          deltaX = x5 - x1;  // distance between end points
          deltaY = y5 - y1;
 
-         x2 = x1 + deltaX / 3;  // one third
-         y2 = y1 + deltaY / 3;
+         x2 = x1 + deltaX / 2;  // one half
+         y2 = y1 + deltaY / 2;
 
          x3 = (int) ((x1+x5)/2 + SQ * (y1-y5));  // tip of projection
          y3 = (int) ((y1+y5)/2 + SQ * (x5-x1));
@@ -57,10 +57,10 @@ public class KochPanel extends JPanel
          x4 = x1 + deltaX * 2/3;  // two thirds
          y4 = y1 + deltaY * 2/3;
 
-         drawFractal (order-1, x1, y1, x2, y2, page);
-         drawFractal (order-1, x2, y2, x3, y3, page);
-         drawFractal (order-1, x3, y3, x4, y4, page);
-         drawFractal (order-1, x4, y4, x5, y5, page);
+        drawFractal (order-1, x1, y1, x2, y2, page);
+        drawFractal (order-1, x1, y1, x3, y3, page);
+        //drawFractal (order-1, x3, y3, x4, y4, page);
+         //drawFractal (order-1, x4, y4, x5, y5, page);
       }
    }
 
@@ -73,9 +73,8 @@ public class KochPanel extends JPanel
 
       page.setColor (Color.BLUE);
 
-      drawFractal (current, TOPX, TOPY, LEFTX, LEFTY, page);
-      drawFractal (current, LEFTX, LEFTY, RIGHTX, RIGHTY, page);
-      drawFractal (current, RIGHTX, RIGHTY, TOPX, TOPY, page);
+      drawFractal (current, TOPX, TOPY, BOTTOMX, BOTTOMY, page);
+      
    }
 
    //-----------------------------------------------------------------

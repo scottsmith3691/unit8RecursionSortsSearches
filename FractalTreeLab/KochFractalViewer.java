@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class KochSnowflakeViewer implements ActionListener
+public class KochFractalViewer implements ActionListener
 {
     private final int WIDTH = 800;
     private final int HEIGHT = 800;
@@ -27,17 +27,17 @@ public class KochSnowflakeViewer implements ActionListener
     //-----------------------------------------------------------------
     public static void main(String[] args)
     {
-        KochSnowflakeViewer viewer = new KochSnowflakeViewer();
+        KochFractalViewer viewer = new KochFractalViewer();
     }
 
-    public KochSnowflakeViewer()
+    public KochFractalViewer()
     {
         tools = new JPanel ();
         tools.setLayout (new BoxLayout(tools, BoxLayout.X_AXIS));
         tools.setBackground (Color.yellow);
         tools.setOpaque (true);
 
-        titleLabel = new JLabel ("The Koch Snowflake");
+        titleLabel = new JLabel ("The Koch Fractal");
         titleLabel.setForeground (Color.black);
 
         increase = new JButton (new ImageIcon ("increase.gif"));
@@ -66,7 +66,7 @@ public class KochSnowflakeViewer implements ActionListener
         panel.add (drawing);
 
         frame = new JFrame();
-        frame.setTitle("Knoch Snowflake");
+        frame.setTitle("Knoch Fractal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WIDTH, HEIGHT);
         frame.add(panel);
