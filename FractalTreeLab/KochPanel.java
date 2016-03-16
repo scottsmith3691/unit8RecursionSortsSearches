@@ -45,21 +45,38 @@ public class KochPanel extends JPanel
          page.drawLine (x1, y1, x5, y5);
       else
       {
-         deltaX = x5 - x1;  // distance between end points
+         deltaX = x5 - x1;
+         System.out.println("x:" + deltaX);// distance between end points
          deltaY = y5 - y1;
-
-         x2 = x1 + deltaX / 2;  // one half
-         y2 = y1 + deltaY / 2;
-
-         x3 = (int) ((x1+x5)/2 + SQ * (y1-y5));  // tip of projection
-         y3 = (int) ((y1+y5)/2 + SQ * (x5-x1));
-
-         x4 = x1 + deltaX * 2/3;  // two thirds
-         y4 = y1 + deltaY * 2/3;
-
-        drawFractal (order-1, x1, y1, x2, y2, page);
-        drawFractal (order-1, x1, y1, x3, y3, page);
-        //drawFractal (order-1, x3, y3, x4, y4, page);
+         System.out.println("y:" +deltaY);
+         
+         System.out.println("x:" +x1);
+         System.out.println("y:" +y1);
+         page.drawLine (x1, y1, x5, y5);
+         x2=x1;
+         y2=y1+(int)(y1*.08333);
+         
+         x3 = 0;
+         y3 = 0;
+         
+         
+         
+//          x2 = x1 - deltaX; // one half
+//          System.out.println("x:" +x2);
+//          y2 = (int)(y1 + (int)(deltaY-(deltaY * .08333)));
+//          System.out.println("y:" +y2);
+//          
+          //x3 = x2 + (int)Math.sin(45)*y2;  // tip of projection
+//          System.out.println("x:" +x3);
+          //y3 = y2 + (int)Math.cos(45)*y2;
+//          System.out.println("y:" +y3);
+// 
+//          x4 = x1 + deltaX * 2/3;  // two thirds
+//          y4 = y1 + deltaY * 2/3;
+        
+        drawFractal (order-1, x2, y2, x3, y3, page);
+       // drawFractal (order-1, x3, y3, x4, y4, page);
+        //drawFractal (order-1, x2, y2, x4, y4, page);
          //drawFractal (order-1, x4, y4, x5, y5, page);
       }
    }
