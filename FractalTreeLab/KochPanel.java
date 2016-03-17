@@ -23,10 +23,10 @@ public class KochPanel extends JPanel
    //-----------------------------------------------------------------
    //  Sets the initial fractal order to the value specified.
    //-----------------------------------------------------------------
-   public KochPanel (int currentOrder)
+   public KochPanel ()
    {
-      current = currentOrder;
-      setBackground (Color.black);
+      
+      setBackground (Color.WHITE);
       setPreferredSize (new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
    }
 
@@ -36,77 +36,42 @@ public class KochPanel extends JPanel
    //  intermediate points are computed, and each line segment is
    //  drawn as a fractal.
    //-----------------------------------------------------------------
-   public void drawFractal (int order, int x1, int y1, int x5, int y5,
-                            Graphics page)
+   public void drawFractal (double dLength, int startX, int startY, double angle,
+                            Graphics g2)
    {
-      int deltaX, deltaY, x2, y2, x3, y3, x4, y4;
-
-      if (order == 1)
-         page.drawLine (x1, y1, x5, y5);
-      else
-      {
-         deltaX = x5 - x1;
-         System.out.println("x:" + deltaX);// distance between end points
-         deltaY = y5 - y1;
-         System.out.println("y:" +deltaY);
-         
-         System.out.println("x:" +x1);
-         System.out.println("y:" +y1);
-         page.drawLine (x1, y1, x5, y5);
-         x2=x1;
-         y2=y1+(int)(y1*.08333);
-         
-         x3 = 0;
-         y3 = 0;
-         
-         
-         
-//          x2 = x1 - deltaX; // one half
-//          System.out.println("x:" +x2);
-//          y2 = (int)(y1 + (int)(deltaY-(deltaY * .08333)));
-//          System.out.println("y:" +y2);
-//          
-          //x3 = x2 + (int)Math.sin(45)*y2;  // tip of projection
-//          System.out.println("x:" +x3);
-          //y3 = y2 + (int)Math.cos(45)*y2;
-//          System.out.println("y:" +y3);
-// 
-//          x4 = x1 + deltaX * 2/3;  // two thirds
-//          y4 = y1 + deltaY * 2/3;
+        double dLen, ang;
+        int sX, sY;
+        if(dLength > 100)
+        {
+            g2.drawLine(startX, startY, startX, startY-(int)dLength);
+        }
+        System.out.println(dLength);
         
-        drawFractal (order-1, x2, y2, x3, y3, page);
-       // drawFractal (order-1, x3, y3, x4, y4, page);
-        //drawFractal (order-1, x2, y2, x4, y4, page);
-         //drawFractal (order-1, x4, y4, x5, y5, page);
-      }
+        dLen = dLength-dLength*.08333;
+        ang = angle + 5;
+        
+        sX = startX + (int) Math.sin(ang)*(int)dLen;
+        sY = startY + (int) Math.cos(ang)*(int)dLen;
+        
+        g2.drawLine (startX, startY, sX, sY);
+
+        drawFractal (dLen, sX, sY, ang, g2);
+        
+      
    }
 
    //-----------------------------------------------------------------
    //  Performs the initial calls to the drawFractal method.
    //-----------------------------------------------------------------
-   public void paintComponent (Graphics page)
+   public void paintComponent (Graphics g2)
    {
-      super.paintComponent (page);
+      super.paintComponent (g2);
 
-      page.setColor (Color.BLUE);
-
-      drawFractal (current, TOPX, TOPY, BOTTOMX, BOTTOMY, page);
+      g2.setColor (Color.BLUE);
+      g2.drawLine (BOTTOMX, BOTTOMY, TOPX, TOPY);
+      
+      drawFractal (100, BOTTOMX, BOTTOMY, 45, g2);
       
    }
 
-   //-----------------------------------------------------------------
-   //  Sets the fractal order to the value specified.
-   //-----------------------------------------------------------------
-   public void setOrder (int order)
-   {
-      current = order;
-   }
-
-   //-----------------------------------------------------------------
-   //  Returns the current order.
-   //-----------------------------------------------------------------
-   public int getOrder ()
-   {
-      return current;
-   }
 }
