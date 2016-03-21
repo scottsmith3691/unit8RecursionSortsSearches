@@ -6,13 +6,13 @@
 
 import java.awt.*;
 import javax.swing.JPanel;
-
+import java.awt.geom.*;
 public class KochPanel extends JPanel
 {
    private final int PANEL_WIDTH = 800;
    private final int PANEL_HEIGHT = 800;
 
-   private final double SQ = Math.sqrt(3.0) / 3;
+   
 
    private final int TOPX = 300, TOPY = 300;
    private final int BOTTOMX = 300, BOTTOMY = 100;
@@ -26,7 +26,7 @@ public class KochPanel extends JPanel
    public KochPanel ()
    {
       
-      setBackground (Color.WHITE);
+      setBackground (Color.BLACK);
       setPreferredSize (new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
    }
 
@@ -37,40 +37,43 @@ public class KochPanel extends JPanel
    //  drawn as a fractal.
    //-----------------------------------------------------------------
    public void drawFractal (double dLength, int startX, int startY, double angle,
-                            Graphics g2)
+                            Graphics2D g2)
    {
         double dLen, ang;
         int sX, sY;
-        if(dLength > 100)
+        g2.setColor (Color.WHITE);
+        if(angle>110)
         {
-            g2.drawLine(startX, startY, startX, startY-(int)dLength);
+            return;
         }
-        System.out.println(dLength);
+        //System.out.println(dLength);
         
-        dLen = dLength-dLength*.08333;
+        dLen = dLength-dLength*.2333;
         ang = angle + 5;
         
         sX = startX + (int) Math.sin(ang)*(int)dLen;
         sY = startY + (int) Math.cos(ang)*(int)dLen;
-        
-        g2.drawLine (startX, startY, sX, sY);
-
+        System.out.println((int) Math.sin(ang)*(int)dLen);
+        System.out.println(sX);
+        System.out.println(sY);
+        //g2.draw(new Line2D.Double(startX, startY, sX, sY));
+        g2.draw(new Line2D.Double(startX, startY, sX, sY));
         drawFractal (dLen, sX, sY, ang, g2);
-        
+        //drawFractal (dLen, sX, sY, ang, g2);
       
    }
 
    //-----------------------------------------------------------------
    //  Performs the initial calls to the drawFractal method.
    //-----------------------------------------------------------------
-   public void paintComponent (Graphics g2)
+   public void paintComponent(Graphics g)
    {
-      super.paintComponent (g2);
-
-      g2.setColor (Color.BLUE);
-      g2.drawLine (BOTTOMX, BOTTOMY, TOPX, TOPY);
+      super.paintComponent(g);
+      Graphics2D g2 = (Graphics2D) g;
+      g2.setColor (Color.WHITE);
+      g2.draw(new Line2D.Double(100, 100, 200, 200));
       
-      drawFractal (100, BOTTOMX, BOTTOMY, 45, g2);
+      drawFractal (100, 300, 300, 45, g2);
       
    }
 
