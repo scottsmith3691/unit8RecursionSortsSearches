@@ -37,10 +37,12 @@ public class KochPanel extends JPanel
    //  drawn as a fractal.
    //-----------------------------------------------------------------
    public void drawFractal (double dLength, int startX, int startY, double angle,
-                            Graphics2D g2)
+                            Graphics2D g2, boolean isLeft)
    {
         double dLen, ang;
         int sX, sY;
+        boolean direction = isLeft;
+        boolean opp = false;
         g2.setColor (Color.WHITE);
         if(angle>110)
         {
@@ -50,15 +52,21 @@ public class KochPanel extends JPanel
         
         dLen = dLength-dLength*.2333;
         ang = angle + 5;
-        
-        sX = startX + (int) Math.sin(ang)*(int)dLen;
-        sY = startY + (int) Math.cos(ang)*(int)dLen;
-        System.out.println((int) Math.sin(ang)*(int)dLen);
-        System.out.println(sX);
-        System.out.println(sY);
-        //g2.draw(new Line2D.Double(startX, startY, sX, sY));
-        g2.draw(new Line2D.Double(startX, startY, sX, sY));
-        drawFractal (dLen, sX, sY, ang, g2);
+        sX = startX + (int) (Math.sin(ang)*dLen);
+        sY = startY + (int) (Math.cos(ang)*dLen);
+        if(direction == true)
+        {
+           //sX = startX + (int) (Math.sin(ang)*dLen);
+           //sY = startY + (int) (Math.cos(ang)*dLen);
+           g2.draw(new Line2D.Double(startX, startY, sX, sY));
+           drawFractal (dLen, sX, sY, ang, g2, direction);
+        }       
+        if(opp = false)
+        {
+           
+            g2.draw(new Line2D.Double(startX, startY, sX, sY));
+            drawFractal (dLen, sX, sY, ang, g2, opp);
+        }
         //drawFractal (dLen, sX, sY, ang, g2);
       
    }
@@ -71,9 +79,9 @@ public class KochPanel extends JPanel
       super.paintComponent(g);
       Graphics2D g2 = (Graphics2D) g;
       g2.setColor (Color.WHITE);
-      g2.draw(new Line2D.Double(100, 100, 200, 200));
+      g2.draw(new Line2D.Double(300, 300, 300, 200));
       
-      drawFractal (100, 300, 300, 45, g2);
+      drawFractal (100, 300, 300, 45, g2, true);
       
    }
 

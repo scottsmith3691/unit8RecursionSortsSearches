@@ -8,8 +8,13 @@ public class BabyNames
 
    public static void main(String[] args) throws FileNotFoundException
    {  
-      Scanner in = new Scanner(new File("babynames.txt"));
-         
+      
+      try
+      {
+      Scanner in = new Scanner(System.in);
+      System.out.println("File:");
+      String file1 = in.next();
+      File f = new File(file1) ;
       RecordReader boys = new RecordReader(LIMIT);
       RecordReader girls = new RecordReader(LIMIT);
       
@@ -23,5 +28,10 @@ public class BabyNames
       }
 
       in.close();
+    }
+    catch (Exception FileNotFoundException)
+    {
+        System.out.println("File not found");
+    }
    }
 }	
