@@ -26,10 +26,12 @@ public class KochPanel extends JPanel
    //  Draws the fractal recursively
     
    public void drawFractal (double dLength, int startX, int startY, double angle,
+
                             Graphics2D g2, int count)
    {    
         //Initializes all varabiable neccesary for drawing
-        int endX, endY, endX1, endY1;
+        double dLen, ang;
+        int endX, endY;
         
         //Creates the random generator of index's 0-7
         int rand = rn.nextInt(8);
@@ -39,6 +41,7 @@ public class KochPanel extends JPanel
         
         //End case
         if(count==15)
+
         {
             return;
         }
@@ -47,12 +50,15 @@ public class KochPanel extends JPanel
         endX = startX + (int) (Math.cos(Math.toRadians(angle)) * dLength );
         endY = startY + (int) (Math.sin(Math.toRadians(angle)) * dLength );
         
+
         //draws the line(s)
         g2.drawLine(startX, startY, endX, endY);
         
         //calls itself to draw two lines off the original line
         drawFractal(dLength*0.80, endX, endY, angle + 50, g2, count+1);
         drawFractal(dLength*0.60, endX, endY, angle - 35, g2, count+1);
+      
+
    }
 
    //-----------------------------------------------------------------
@@ -77,7 +83,6 @@ public class KochPanel extends JPanel
         
         //Initial call to the fractal method
         drawFractal (100, 300, 250, 45, g2, 1);
-      
    }
 
 }
