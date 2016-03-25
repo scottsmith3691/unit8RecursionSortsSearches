@@ -5,27 +5,21 @@
 //********************************************************************
 
 import java.awt.*;
+import java.util.*;
 import javax.swing.JPanel;
 import java.awt.geom.*;
 public class KochPanel extends JPanel
 {
    private final int PANEL_WIDTH = 800;
    private final int PANEL_HEIGHT = 800;
-
+   private ArrayList<Color> color = new ArrayList<Color>();
    
-
-   private final int TOPX = 300, TOPY = 300;
-   private final int BOTTOMX = 300, BOTTOMY = 100;
-   
-
-   private int current; //current order
-
+   private Random rn = new Random();
    //-----------------------------------------------------------------
    //  Sets the initial fractal order to the value specified.
    //-----------------------------------------------------------------
    public KochPanel ()
    {
-      
       setBackground (Color.BLACK);
       setPreferredSize (new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
    }
@@ -36,31 +30,26 @@ public class KochPanel extends JPanel
    //  intermediate points are computed, and each line segment is
    //  drawn as a fractal.
    //-----------------------------------------------------------------
+    
    public void drawFractal (double dLength, int startX, int startY, double angle,
-                            Graphics2D g2)
-   {
-        double dLen, ang;
-        int sX, sY;
-        g2.setColor (Color.WHITE);
-        if(angle>110)
+                            Graphics2D g2, int count)
+   {    
+        int endX, endY, endX1, endY1;
+        int rand = rn.nextInt(8);
+        g2.setColor(color.get(rand));
+        if(count==15)
         {
             return;
         }
-        //System.out.println(dLength);
+       
         
-        dLen = dLength-dLength*.2333;
-        ang = angle + 5;
-        
-        sX = startX + (int) Math.sin(ang)*(int)dLen;
-        sY = startY + (int) Math.cos(ang)*(int)dLen;
-        System.out.println((int) Math.sin(ang)*(int)dLen);
-        System.out.println(sX);
-        System.out.println(sY);
-        //g2.draw(new Line2D.Double(startX, startY, sX, sY));
-        g2.draw(new Line2D.Double(startX, startY, sX, sY));
-        drawFractal (dLen, sX, sY, ang, g2);
-        //drawFractal (dLen, sX, sY, ang, g2);
+        endX = startX + (int) (Math.cos(Math.toRadians(angle)) * dLength );
+       endY = startY + (int) (Math.sin(Math.toRadians(angle)) * dLength );
       
+      g2.drawLine(startX, startY, endX, endY);
+      
+      drawFractal(dLength*0.80, endX, endY, angle + 50, g2, count+1);
+      drawFractal(dLength*0.60, endX, endY, angle - 35, g2, count+1);
    }
 
    //-----------------------------------------------------------------
@@ -70,10 +59,18 @@ public class KochPanel extends JPanel
    {
       super.paintComponent(g);
       Graphics2D g2 = (Graphics2D) g;
-      g2.setColor (Color.WHITE);
-      g2.draw(new Line2D.Double(100, 100, 200, 200));
       
-      drawFractal (100, 300, 300, 45, g2);
+        color.add(Color.RED);
+        color.add(Color.CYAN);
+        color.add(Color.BLUE);
+        color.add(Color.YELLOW);
+        color.add(Color.GREEN);
+        color.add(Color.MAGENTA);
+        color.add(Color.ORANGE);
+        color.add(Color.PINK);
+        color.add(Color.WHITE);
+      
+      drawFractal (100, 300, 250, 45, g2, 1);
       
    }
 
