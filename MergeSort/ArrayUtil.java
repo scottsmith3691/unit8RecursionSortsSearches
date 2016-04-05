@@ -6,7 +6,7 @@ import java.util.Random;
 public class ArrayUtil
 { 
    private static Random generator = new Random();
-
+   private static String[] str = new String[]{"A","B","C","D","E","F","G","H","I","XB","VDD"};
    /**
       Creates an array filled with random values.
       @param length the length of the array
@@ -20,6 +20,18 @@ public class ArrayUtil
       for (int i = 0; i < a.length; i++)
       {
          a[i] = generator.nextInt(n);
+      }
+      
+      return a;
+   }
+   
+   public static String[] randomStringArray(int length)
+   {  
+      String[] a = new String[length];      
+      for (int i = 0; i < a.length; i++)
+      {
+         int x = generator.nextInt(str.length-1);
+         a[i] = str[x];
       }
       
       return a;
