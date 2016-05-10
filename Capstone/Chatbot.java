@@ -30,10 +30,10 @@ public class Chatbot
         in = input;
         String[] star = new String[] {"help", "fact", "date"};
         greetingsKeywords = new String[]{"hi", "hello", "what's up", "how are", "how r", 
-            "hey", "sup", "suh", "whats up", "yo" };
+            "hey", "sup", "suh", "whats up", "?" };
 
         answers = new String[]{"good", "bad", "great", "horrible", "fine", 
-            "nothing", "nothing much", "just chillin", "why"};
+            "nothing", "nothing much", "just chillin", "why", "love", "hate", "sick", "need"};
 
         //String[] answersResponses = new String[]{"great to hear", "oh no, im sorry", "awesome", "oh no, whats wrong",
         //"are you sure", "i feel ya", "thats cool", "nice"};
@@ -124,13 +124,13 @@ public class Chatbot
             {
                 returnStr += "Oh no, Im sorry ";
             }
-            else
-            {
-                returnStr+= "sweet ";
-            }
             if(in.toLowerCase().indexOf("why")!=-1)
             {
-                returnStr += "because I am talking to you";
+                returnStr += "because I am talking to you ";
+            }
+            if(in.toLowerCase().indexOf("i")!=-1 || in.toLowerCase().indexOf("you")!=-1)
+            {
+                returnStr += "likewise!";
             }
         }
         return returnStr;
